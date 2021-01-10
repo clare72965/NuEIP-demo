@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+    crossorigin="anonymous">
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="./style.css">
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.1-beta3/mock-min.js"></script>
+  <script src="./mock.js"></script>
+  <script src="./demo.js"></script>
+  <script src="./validate.js"></script>
+
+
+  <title>個人資料表</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2>個人資料表</h2>
+
+    <br />
+
+    <div class="btn-box">
+      <button id="addbutton" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#dialog-addconfirm">
+        <i class="fas fa-user-plus"></i>新增</button>
+      <button id="searchbutton" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#dialog-searchconfirm">
+        <i class="fas fa-search"></i>搜尋</button>
+    </div>
+
+    <div class="table-responsive">
+      <table id="cardtable" class="table table-hover rwd-table">
+        <thead class="table-head">
+          <tr>
+            <th>中文名字</th>
+            <th>英文名字</th>
+            <th>性別</th>
+            <th>手機</th>
+            <th>電子信箱</th>
+            <th class="operate">修改</th>
+            <th class="operate">刪除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tbody></tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 新增表單 -->
+    <div id="dialog-addconfirm" class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">新增表單</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="addResetForm" class="resetform">重新填寫</div>
+            <form method="post" id="addform" class="form">
+              <!-- 中文姓名 -->
+              <div class="mb-3">
+                <label>中文姓名</label>
+                <input name="cnname" type="text" id="addcnname" class="form-control" placeholder="請輸入中文姓名">
+              </div>
+              <!-- 英文姓名 -->
+              <div class="mb-3">
+                <label>英文姓名</label>
+                <input name="enname" type="text" id="addenname" class="form-control" placeholder="請輸入英文姓名">
+              </div>
+              <!-- 性別 -->
+              <div class="mb-3">
+                <label>性別</label>
+                <div class="row">
+                  <div class="col-2">
+                    <input class="form-check-input" type="radio" name="addsex" id="addman" checked>
+                    <label class="form-check-label" for="addman">男</label>
+                  </div>
+                  <div class="col-10">
+                    <input class="form-check-input" type="radio" name="addsex" id="addwoman">
+                    <label class="form-check-label" for="addwoman">女</label>
+                  </div>
+                </div>
+              </div>
+              <!-- 手機 -->
+              <div class="mb-3">
+                <label>手機</label>
+                <input name="phone" type="text" maxlength="10" id="addphone" class="form-control" placeholder="請輸入手機號碼">
+              </div>
+              <!-- 電子信箱 -->
+              <div class="mb-3">
+                <label>電子信箱</label>
+                <input name="email" type="text" id="addemail" class="form-control" placeholder="請輸入Email">
+              </div>
+              <!-- 確認送出 -->
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary confirm" data-bs-dismiss="modal">確定</button>
+            <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- 搜尋表單 -->
+    <div id="dialog-searchconfirm" class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">搜尋表單</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="searcResetForm" class="resetform">重新填寫</div>
+            <form method="post" id="searchform" class="form">
+              <!-- 中文姓名 -->
+              <div class="mb-3">
+                <label>中文姓名</label>
+                <input name="cnname" type="text" id="secnname" class="form-control" placeholder="請輸入中文姓名">
+              </div>
+              <!-- 英文姓名 -->
+              <div class="mb-3">
+                <label>英文姓名</label>
+                <input name="enname" type="text" id="seenname" class="form-control" placeholder="請輸入英文姓名">
+              </div>
+              <!-- 性別 -->
+              <div class="mb-3">
+                <label>性別</label>
+                <div class="row">
+                  <div class="col-2">
+                    <input class="form-check-input" type="radio" name="sesex" id="seman" checked>
+                    <label class="form-check-label" for="seman">男</label>
+                  </div>
+                  <div class="col-10">
+                    <input class="form-check-input" type="radio" name="sesex" id="sewoman">
+                    <label class="form-check-label" for="sewoman">女</label>
+                  </div>
+                </div>
+              </div>
+              <!-- 手機 -->
+              <div class="mb-3">
+                <label>手機</label>
+                <input name="phone" type="text" id="sephone" maxlength="10" class="form-control" placeholder="請輸入手機號碼">
+              </div>
+              <!-- 電子信箱 -->
+              <div class="mb-3">
+                <label>電子信箱</label>
+                <input name="email" type="text" id="seemail" class="form-control" placeholder="請輸入Email">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary confirm" data-bs-dismiss="modal">確定</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- 修改表單 -->
+    <div id="dialog-modifyconfirm" class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">修改表單</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="modifyResetform" class="resetform">重新填寫</div>
+            <form method="post" id="modifyform" class="form">
+              <!-- 中文姓名 -->
+              <div class="mb-3">
+                <label for="mocnname">中文姓名</label>
+                <input name="cnname" type="text" id="mocnname" class="form-control" placeholder="請輸入中文姓名">
+              </div>
+              <!-- 英文姓名 -->
+              <div class="mb-3">
+                <label for="moenname">英文姓名</label>
+                <input name="enname" type="text" id="moenname" class="form-control" placeholder="請輸入英文姓名">
+              </div>
+              <!-- 性別 -->
+              <div class="mb-3">
+                <label>性別</label>
+                <div class="row">
+                  <div class="col-2">
+                    <input class="form-check-input" type="radio" name="mosex" id="modifyman" checked>
+                    <label class="form-check-label" for="modifyman">男</label>
+                  </div>
+                  <div class="col-10">
+                    <input class="form-check-input" type="radio" name="mosex" id="modifywoman">
+                    <label class="form-check-label" for="modifywoman">女</label>
+                  </div>
+                </div>
+              </div>
+              <!-- 手機 -->
+              <div class="mb-3">
+                <label for="mophone">手機</label>
+                <input name="phone" type="text" id="mophone" maxlength="10" class="form-control" placeholder="請輸入手機號碼">
+              </div>
+              <!-- 電子信箱 -->
+              <div class="mb-3">
+                <label for="moemail">電子信箱</label>
+                <input name="email" type="text" id="moemail" class="form-control" placeholder="請輸入Email">
+              </div>
+
+              <!-- 確認送出 -->
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary confirm">確定</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 刪除列表 -->
+    <div id="dialog-deleteconfirm" class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">刪除個人資料</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">確認刪除<span class="name"></span>嗎?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary confirm" data-bs-dismiss="modal">確定</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <pre>
+
+        主題:活潑可愛風格
+              主色選用亮暖色系的橘黃色，呈現活潑有朝氣的感覺
+              以同色系棕色作搭配避免突兀感 
+            
+        自定特效:
+           1. 表頭: 當游標碰到表頭欄位，字體變大。使用css呈現
+           2. 表身: 當游標碰到表身欄位，字體變色、變粗體。使用css呈現
+           3. 表身: 當游標碰到表身欄位且停留超過5秒，該欄位會左右晃動。使用css呈現
+           4. 確定刪除資料列後，該列以淡出的方式消失後再重新獲取資料。使用jquery的動畫效果實作
+
+    </pre>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+    crossorigin="anonymous"></script> -->
+  </div>
+</body>
+
+</html>
